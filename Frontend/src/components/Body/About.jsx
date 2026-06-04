@@ -25,7 +25,7 @@ const values = [
   },
 ];
 
-export default function About() {
+export default function About({ onNavigate }) {
   return (
     <section className="about" id="about">
       <div className="container">
@@ -67,10 +67,10 @@ export default function About() {
             </div>
 
             <div className="about-cta">
-              <a href="#contact" className="btn btn-primary btn-lg">
+              <button className="btn btn-primary btn-lg" onClick={() => onNavigate?.('signup')}>
                 Partner with us
                 <ArrowRight size={16} strokeWidth={2.5} />
-              </a>
+              </button>
             </div>
           </div>
 

@@ -2,7 +2,7 @@
 import { Leaf, ArrowRight } from 'lucide-react';
 import './Header.css';
 
-export default function Header() {
+export default function Header({ onNavigate }) {
   return (
     <header className="header">
       <div className="container">
@@ -25,13 +25,13 @@ export default function Header() {
 
           {/* CTA buttons */}
           <div className="nav-cta">
-            {/* TODO: connect to authApi.login() */}
-            <a href="#" className="btn btn-outline">Log in</a>
-            {/* TODO: connect to authApi.register() */}
-            <a href="#" className="btn btn-primary">
+            <button className="btn btn-outline" onClick={() => onNavigate?.('login')}>
+              Log in
+            </button>
+            <button className="btn btn-primary" onClick={() => onNavigate?.('signup')}>
               <ArrowRight size={15} strokeWidth={2.5} />
               Join free
-            </a>
+            </button>
           </div>
         </nav>
       </div>
