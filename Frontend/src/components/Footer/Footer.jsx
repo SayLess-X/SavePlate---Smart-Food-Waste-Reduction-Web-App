@@ -1,77 +1,58 @@
 // src/components/Footer/Footer.jsx
-import { Leaf, Heart, AtSign, MessageCircle, Briefcase, ThumbsUp } from 'lucide-react';
-import './Footer.css';
+import { Leaf, Heart } from 'lucide-react';
+import { colors, fonts } from '../../theme';
+
+const footerLinks = [
+  { label: 'About us', href: '#about' },
+  { label: 'Contact us', href: '#contact' },
+  { label: 'Privacy policy', href: '#' },
+  { label: 'Terms of service', href: '#' },
+];
 
 export default function Footer() {
   return (
-    <footer className="footer">
-      <div className="container">
-        <div className="footer-top">
-
-          {/* Brand */}
-          <div>
-            <div className="footer-brand-logo">
-              <span className="footer-brand-logo-icon">
+    <footer style={{ background: colors.charcoal, color: 'rgba(255,255,255,0.55)', padding: '3.5rem 0 2rem' }}>
+      <div className="container" style={{ maxWidth: '1180px' }}>
+        <div className="row align-items-start justify-content-between g-4 pb-4 mb-4 border-bottom" style={{ borderColor: 'rgba(255,255,255,0.1) !important' }}>
+          <div className="col-lg-6">
+            <div className="d-flex align-items-center gap-2 mb-3" style={{ fontFamily: fonts.display, fontSize: '1.4rem', fontWeight: 700, color: '#fff' }}>
+              <span
+                className="d-flex align-items-center justify-content-center"
+                style={{ width: 34, height: 34, background: colors.green, borderRadius: 9 }}
+              >
                 <Leaf size={16} strokeWidth={2.5} color="#fff" />
               </span>
-              SavePlate
+              ZeroWaste
             </div>
-            <p className="footer-tagline">
-              Fighting food waste, one plate at a time. Join thousands of businesses
-              and individuals making a difference every single day.
+            <p className="mb-0" style={{ fontSize: '0.88rem', lineHeight: 1.7, maxWidth: 360 }}>
+              Fighting food waste together. Connecting surplus food with the people and communities who need it most.
             </p>
-            <div className="footer-social">
-              <a href="#" className="social-btn" aria-label="Contact us"><AtSign size={16} strokeWidth={1.8} /></a>
-              <a href="#" className="social-btn" aria-label="Messages"><MessageCircle size={16} strokeWidth={1.8} /></a>
-              <a href="#" className="social-btn" aria-label="Careers"><Briefcase size={16} strokeWidth={1.8} /></a>
-              <a href="#" className="social-btn" aria-label="Support"><ThumbsUp size={16} strokeWidth={1.8} /></a>
-            </div>
           </div>
 
-          {/* Platform */}
-          <div className="footer-col">
-            <h4>Platform</h4>
-            <ul>
-              {/* TODO: link to /browse once router is set up */}
-              <li><a href="#">Browse food</a></li>
-              <li><a href="#">List surplus</a></li>
-              <li><a href="#">Charity hub</a></li>
-              <li><a href="#">Mobile app</a></li>
-              <li><a href="#">API access</a></li>
+          <div className="col-lg-auto">
+            <ul className="list-unstyled d-flex flex-wrap gap-3 gap-lg-4 mb-0">
+              {footerLinks.map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    className="text-decoration-none"
+                    style={{ fontSize: '0.88rem', color: 'rgba(255,255,255,0.55)' }}
+                    onMouseEnter={(e) => { e.currentTarget.style.color = colors.greenL; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.55)'; }}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
-
-          {/* Company */}
-          <div className="footer-col">
-            <h4>Company</h4>
-            <ul>
-              <li><a href="#about">About us</a></li>
-              <li><a href="#">Blog</a></li>
-              <li><a href="#">Careers</a></li>
-              <li><a href="#">Press kit</a></li>
-              <li><a href="#">Partners</a></li>
-            </ul>
-          </div>
-
-          {/* Support */}
-          <div className="footer-col">
-            <h4>Support</h4>
-            <ul>
-              <li><a href="#">Help centre</a></li>
-              <li><a href="#contact">Contact us</a></li>
-              <li><a href="#">Privacy policy</a></li>
-              <li><a href="#">Terms of service</a></li>
-              <li><a href="#">Cookie settings</a></li>
-            </ul>
-          </div>
-
         </div>
 
-        <div className="footer-bottom">
-          <span>© 2025 SavePlate Ltd. All rights reserved.</span>
+        <div className="d-flex flex-column flex-sm-row align-items-center justify-content-between gap-2" style={{ fontSize: '0.82rem' }}>
+          <span>© 2026 ZeroWaste Ltd. All rights reserved.</span>
           <span>
             Made with{' '}
-            <Heart size={13} className="footer-bottom-heart" />{' '}
+            <Heart size={13} style={{ display: 'inline', verticalAlign: '-1px', color: colors.greenL, fill: colors.greenL }} />{' '}
             for the planet
           </span>
         </div>

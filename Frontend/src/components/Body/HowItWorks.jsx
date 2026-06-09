@@ -1,6 +1,6 @@
-// src/components/Body/HowItWorks/HowItWorks.jsx
+// src/components/Body/HowItWorks.jsx
 import { Store, Search, PackageCheck } from 'lucide-react';
-import './HowItWorks.css';
+import { colors, fonts, sectionTagStyle, sectionHeadingStyle, sectionSubStyle } from '../../theme';
 
 const steps = [
   {
@@ -25,26 +25,48 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section className="how" id="how">
-      <div className="container">
-        <div className="how-header">
-          <div>
-            <p className="section-tag">How it works</p>
-            <h2 className="section-heading">Three simple steps to zero waste</h2>
+    <section className="py-5" id="how" style={{ paddingTop: '7rem', paddingBottom: '7rem', background: colors.white }}>
+      <div className="container" style={{ maxWidth: '1180px' }}>
+        <div className="row align-items-end g-5 mb-5">
+          <div className="col-lg-6">
+            <p className="mb-3" style={sectionTagStyle}>How it works</p>
+            <h2 style={sectionHeadingStyle}>Three simple steps to zero waste</h2>
           </div>
-          <p className="section-sub">
-            Whether you're a business with surplus stock or someone looking for an
-            affordable, sustainable meal — getting started takes under two minutes.
-          </p>
+          <div className="col-lg-6">
+            <p style={sectionSubStyle}>
+              Whether you're a business with surplus stock or someone looking for an
+              affordable, sustainable meal — getting started takes under two minutes.
+            </p>
+          </div>
         </div>
 
-        <div className="how-steps">
-          {steps.map((step) => (
-            <div key={step.num} className="how-step">
-              <div className="how-step-num">{step.num}</div>
-              <div className="how-step-icon">{step.icon}</div>
-              <h3>{step.title}</h3>
-              <p>{step.desc}</p>
+        <div className="row g-0">
+          {steps.map((step, i) => (
+            <div key={step.num} className="col-lg-4">
+              <div
+                className="h-100 p-4"
+                style={{
+                  background: colors.cream,
+                  padding: '2.5rem 2rem',
+                  borderRadius: i === 0 ? '20px 0 0 20px' : i === steps.length - 1 ? '0 20px 20px 0' : 0,
+                }}
+              >
+                <div style={{ fontFamily: fonts.display, fontSize: '4rem', fontWeight: 900, color: colors.border, lineHeight: 1, marginBottom: '1rem' }}>
+                  {step.num}
+                </div>
+                <div
+                  className="d-flex align-items-center justify-content-center text-white mb-4"
+                  style={{ width: 52, height: 52, background: colors.green, borderRadius: 14 }}
+                >
+                  {step.icon}
+                </div>
+                <h3 style={{ fontFamily: fonts.display, fontSize: '1.2rem', fontWeight: 700, color: colors.charcoal, marginBottom: '0.75rem' }}>
+                  {step.title}
+                </h3>
+                <p style={{ fontSize: '0.9rem', color: colors.muted, lineHeight: 1.65, marginBottom: 0 }}>
+                  {step.desc}
+                </p>
+              </div>
             </div>
           ))}
         </div>

@@ -1,15 +1,25 @@
 // src/components/Auth/Signup.jsx
 import { useState } from 'react';
-import { ArrowLeft, Leaf } from 'lucide-react';
-import './Auth.css';
+import { ArrowLeft } from 'lucide-react';
+import AuthBranding from './AuthBranding';
+import { colors, fonts } from '../../theme';
 
 const SPRING_BOOT_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
 
 const INITIAL = { fullName: '', email: '', password: '', confirmPassword: '' };
 
+const inputStyle = {
+  borderColor: colors.border,
+  borderWidth: '1.5px',
+  borderRadius: 10,
+  background: colors.cream,
+  fontSize: '0.9rem',
+  padding: '0.75rem 1rem',
+};
+
 export default function Signup({ onNavigate }) {
   const [form, setForm]     = useState(INITIAL);
-  const [status, setStatus] = useState('idle'); // 'idle' | 'loading' | 'success' | 'error'
+  const [status, setStatus] = useState('idle');
   const [errMsg, setErrMsg] = useState('');
 
   const handleChange = (e) =>
@@ -30,9 +40,6 @@ export default function Signup({ onNavigate }) {
     setStatus('loading');
     setErrMsg('');
     try {
-      // POST http://localhost:8080/api/auth/register
-      // Spring Boot expects: { fullName, email, password }
-      // Returns: { token, user: { id, fullName, email, role } }
       const res = await fetch(`${SPRING_BOOT_URL}/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -49,15 +56,11 @@ export default function Signup({ onNavigate }) {
       }
 
       const data = await res.json();
-
-      // Store JWT token in sessionStorage by default
-      sessionStorage.setItem('sp_token', data.token);
-      sessionStorage.setItem('sp_user', JSON.stringify(data.user));
+      sessionStorage.setItem('zw_token', data.token);
+      sessionStorage.setItem('zw_user', JSON.stringify(data.user));
 
       setStatus('success');
       setForm(INITIAL);
-
-      // TODO: redirect to dashboard, e.g. navigate('/dashboard')
       alert(`Account created! Welcome, ${data.user.fullName}!`);
     } catch (err) {
       setErrMsg(err.message || 'Something went wrong. Please try again.');
@@ -66,105 +69,72 @@ export default function Signup({ onNavigate }) {
   };
 
   return (
-    <div className="auth-page">
-
-      {/* ── Left branding panel ── */}
-      <div className="auth-left">
-        <div className="auth-left-bg">
-          <img
-            src="https://images.unsplash.com/photo-1543352634-99a5d50ae78e?w=900&q=80"
-            alt="Fresh produce"
-          />
-        </div>
-
-        <div className="auth-left-content">
-          {/* Logo */}
-          <button type="button" className="auth-logo" onClick={() => onNavigate?.('home')}>
-            <span className="auth-logo-icon">
-              <Leaf size={18} strokeWidth={2.5} color="#fff" />
-            </span>
-            SavePlate
-          </button>
-
-          {/* Brand copy */}
-          <div className="auth-brand-copy">
-            <p className="auth-brand-eyebrow">A Quiet Revolution</p>
-            <h2 className="auth-brand-heading">
-              Every Saved plate is<br />a small kindness.
-            </h2>
-            <p className="auth-brand-sub">
-              Join thousands of households turning surplus into shared meals.
-            </p>
-          </div>
-
-          <p className="auth-left-footer">© 2026 SavePlate Ltd. All rights reserved.</p>
-        </div>
+    <div className="row g-0 min-vh-100" style={{ background: colors.cream }}>
+      <div className="col-lg-6">
+        <AuthBranding onNavigate={onNavigate} />
       </div>
 
-      {/* ── Right form panel ── */}
-      <div className="auth-right">
-        <div className="auth-form-wrap">
-
-          <button className="auth-back" onClick={() => onNavigate?.('home')}>
+      <div className="col-lg-6 d-flex align-items-center justify-content-center p-4 p-lg-5 bg-white">
+        <div className="w-100" style={{ maxWidth: 420 }}>
+          <button
+            className="btn btn-link p-0 text-decoration-none d-inline-flex align-items-center gap-2 border-0 mb-4"
+            style={{ fontSize: '0.85rem', color: colors.muted }}
+            onClick={() => onNavigate?.('home')}
+          >
             <ArrowLeft size={15} /> Back
           </button>
 
-          <h1 className="auth-title">Create your account</h1>
-          <p className="auth-subtitle">Start reducing food waste in under a minute.</p>
+          <h1 style={{ fontFamily: fonts.display, fontSize: '1.9rem', fontWeight: 700, color: colors.charcoal, marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>
+            Create your account
+          </h1>
+          <p className="mb-4" style={{ fontSize: '0.95rem', color: colors.muted, fontWeight: 300 }}>
+            Start reducing food waste in under a minute.
+          </p>
 
-          <div className="auth-form">
+          <div className="d-flex flex-column gap-3">
             {status === 'error' && (
-              <div className="auth-error">{errMsg}</div>
+              <div
+                className="small p-2 rounded"
+                style={{ color: '#c0392b', background: '#fdf0ef', border: '1px solid #f5c6c2' }}
+              >
+                {errMsg}
+              </div>
             )}
 
-            <div className="auth-field">
-              <label htmlFor="fullName">Full Name:</label>
-              <input
-                id="fullName"
-                name="fullName"
-                type="text"
-                placeholder="John Doe"
-                value={form.fullName}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="auth-field">
-              <label htmlFor="email">Email:</label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="someone@gmail.com"
-                value={form.email}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="auth-field">
-              <label htmlFor="password">Password:</label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                value={form.password}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="auth-field">
-              <label htmlFor="confirmPassword">Confirm Password:</label>
-              <input
-                id="confirmPassword"
-                name="confirmPassword"
-                type="password"
-                value={form.confirmPassword}
-                onChange={handleChange}
-              />
-            </div>
+            {[
+              { id: 'fullName', label: 'Full Name:', type: 'text', placeholder: 'John Doe' },
+              { id: 'email', label: 'Email:', type: 'email', placeholder: 'someone@gmail.com' },
+              { id: 'password', label: 'Password:', type: 'password' },
+              { id: 'confirmPassword', label: 'Confirm Password:', type: 'password' },
+            ].map((field) => (
+              <div key={field.id}>
+                <label htmlFor={field.id} className="form-label fw-semibold mb-1" style={{ fontSize: '0.82rem', color: colors.charcoal }}>
+                  {field.label}
+                </label>
+                <input
+                  id={field.id}
+                  name={field.id}
+                  type={field.type}
+                  className="form-control"
+                  style={inputStyle}
+                  placeholder={field.placeholder}
+                  value={form[field.id]}
+                  onChange={handleChange}
+                />
+              </div>
+            ))}
 
             <button
-              className="auth-submit"
+              className="btn w-100 text-uppercase fw-semibold"
+              style={{
+                padding: '0.9rem',
+                background: colors.charcoal,
+                color: '#fff',
+                borderRadius: 10,
+                fontSize: '0.95rem',
+                letterSpacing: '0.06em',
+                border: 'none',
+              }}
               onClick={handleSubmit}
               disabled={status === 'loading' || status === 'success'}
             >
@@ -173,17 +143,22 @@ export default function Signup({ onNavigate }) {
                 : 'Create Account'}
             </button>
 
-            <p className="auth-legal">
+            <p className="text-center small mb-0" style={{ color: colors.muted, lineHeight: 1.6 }}>
               By signing up you agree to our{' '}
-              <a href="#">terms &amp; privacy policy</a>.
+              <a href="#" className="text-decoration-underline" style={{ color: colors.charcoal }}>terms &amp; privacy policy</a>.
             </p>
           </div>
 
-          <p className="auth-switch">
+          <p className="text-center mt-4 mb-0" style={{ fontSize: '0.88rem', color: colors.muted }}>
             Already have an account?{' '}
-            <button onClick={() => onNavigate?.('login')}>Login</button>
+            <button
+              className="btn btn-link p-0 border-0 fw-semibold"
+              style={{ fontSize: 'inherit', color: colors.charcoal, textDecoration: 'underline', textUnderlineOffset: '2px' }}
+              onClick={() => onNavigate?.('login')}
+            >
+              Login
+            </button>
           </p>
-
         </div>
       </div>
     </div>

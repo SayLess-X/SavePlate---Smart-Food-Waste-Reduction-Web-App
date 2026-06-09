@@ -1,6 +1,5 @@
 // src/App.jsx
-import { useState } from 'react';
-import './App.css';
+import { useState, useEffect } from 'react';
 
 import Header      from './components/Header/Header';
 import Hero        from './components/Body/Hero';
@@ -12,18 +11,26 @@ import Contact     from './components/Body/Contact';
 import Footer      from './components/Footer/Footer';
 import Login       from './components/Auth/Login';
 import Signup      from './components/Auth/Signup';
+import { colors, fonts } from './theme';
 
-// Simple client-side page state — swap for React Router once you add routing
-// e.g. npm install react-router-dom  then use <BrowserRouter> + <Routes>
 export default function App() {
-  const [page, setPage] = useState('home'); // 'home' | 'login' | 'signup'
+  const [page, setPage] = useState('home');
+
+  useEffect(() => {
+    document.documentElement.style.scrollBehavior = 'smooth';
+    document.body.style.fontFamily = fonts.body;
+    document.body.style.backgroundColor = colors.cream;
+    document.body.style.color = colors.charcoal;
+    document.body.style.fontSize = '16px';
+    document.body.style.lineHeight = '1.65';
+    document.body.style.webkitFontSmoothing = 'antialiased';
+  }, []);
 
   if (page === 'login')  return <Login  onNavigate={setPage} />;
   if (page === 'signup') return <Signup onNavigate={setPage} />;
 
   return (
     <>
-      {/* Pass setPage so Header buttons can navigate */}
       <Header onNavigate={setPage} />
 
       <main>
