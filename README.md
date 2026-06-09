@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-frontend with react, used lucide react for icons and backend with spring boot with postgresql
-=======
 # ## About SavePlate
 Malaysians love food and alongside this, it create a problem of food waste.
 This is where SavePlate comes, it's an intelligent inventory management and planning web application.
@@ -67,16 +64,6 @@ The application is built as a **web-based system** using a modern Java + React s
 
 ---
 
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js (v18+)
-- Java JDK (17+)
-- MySQL (8+)
-- npm or yarn
-
-### Installation
 
 **1. Clone the repository**
 
@@ -85,7 +72,7 @@ git clone https://github.com/Kabir-Rajbhandari/ZeroWaste.git
 cd ZeroWaste
 ```
 
-## 👥 Team
+## Team
 
 |Role|Name|Student ID|
 |---|---|---|
@@ -95,7 +82,7 @@ cd ZeroWaste
 
 ---
 
-## 🎓 Academic Context
+## Academic Context
 
 |Field|Detail|
 |---|---|
