@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-frontend with react, used lucide react for icons and backend with spring boot with postgresql
-=======
 # ## About SavePlate
 Malaysians love food and alongside this, it create a problem of food waste.
 This is where SavePlate comes, it's an intelligent inventory management and planning web application.
