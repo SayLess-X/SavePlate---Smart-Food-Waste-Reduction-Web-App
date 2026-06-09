@@ -64,25 +64,14 @@ The application is built as a **web-based system** using a modern Java + React s
 
 ---
 
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js (v18+)
-- Java JDK (17+)
-- MySQL (8+)
-- npm or yarn
-
-### Installation
-
-**1. Clone the repository**
+**Clone the repository**
 
 ```bash
 git clone https://github.com/Kabir-Rajbhandari/ZeroWaste.git
 cd ZeroWaste
 ```
 
-## 👥 Team
+## Team
 
 |Role|Name|Student ID|
 |---|---|---|
@@ -92,7 +81,7 @@ cd ZeroWaste
 
 ---
 
-## 🎓 Academic Context
+## Academic Context
 
 |Field|Detail|
 |---|---|
