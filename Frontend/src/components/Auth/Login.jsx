@@ -16,13 +16,13 @@ const inputStyle = {
 };
 
 export default function Login({ onNavigate }) {
-  const [form, setForm]     = useState({ email: '', password: '', remember: false });
+  const [form, setForm]     = useState({ email: '', password: '' });
   const [status, setStatus] = useState('idle');
   const [errMsg, setErrMsg] = useState('');
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setForm((prev) => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async () => {
@@ -41,12 +41,10 @@ export default function Login({ onNavigate }) {
       }
 
       const data = await res.json();
-      const store = form.remember ? localStorage : sessionStorage;
-      store.setItem('zw_token', data.token);
-      store.setItem('zw_user', JSON.stringify(data.user));
+      sessionStorage.setItem('zw_token', data.token);
+      sessionStorage.setItem('zw_user', JSON.stringify(data.user));
 
-      alert(`Welcome back, ${data.user.fullName}!`);
-      setStatus('idle');
+      onNavigate?.('dashboard');
     } catch (err) {
       setErrMsg(err.message || 'Something went wrong. Please try again.');
       setStatus('error');
@@ -111,23 +109,6 @@ export default function Login({ onNavigate }) {
                 value={form.password}
                 onChange={handleChange}
               />
-            </div>
-
-            <div className="d-flex align-items-center justify-content-between" style={{ fontSize: '0.84rem' }}>
-              <label className="d-flex align-items-center gap-2 mb-0" style={{ color: colors.muted, cursor: 'pointer' }}>
-                <input
-                  type="checkbox"
-                  name="remember"
-                  className="form-check-input m-0"
-                  style={{ width: 16, height: 16, accentColor: colors.green }}
-                  checked={form.remember}
-                  onChange={handleChange}
-                />
-                Remember Me
-              </label>
-              <button className="btn btn-link p-0 border-0" style={{ fontSize: '0.84rem', color: colors.muted, textDecoration: 'none' }}>
-                Forgot Password?
-              </button>
             </div>
 
             <button
