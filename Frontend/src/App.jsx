@@ -11,10 +11,12 @@ import Contact     from './components/Body/Contact';
 import Footer      from './components/Footer/Footer';
 import Login       from './components/Auth/Login';
 import Signup      from './components/Auth/Signup';
+import Dashboard   from './components/Dashboard/Dashboard';
 import { colors, fonts } from './theme';
+import { isLoggedIn } from './utils/auth';
 
 export default function App() {
-  const [page, setPage] = useState('home');
+  const [page, setPage] = useState(() => (isLoggedIn() ? 'dashboard' : 'home'));
 
   useEffect(() => {
     document.documentElement.style.scrollBehavior = 'smooth';
@@ -26,8 +28,9 @@ export default function App() {
     document.body.style.webkitFontSmoothing = 'antialiased';
   }, []);
 
-  if (page === 'login')  return <Login  onNavigate={setPage} />;
-  if (page === 'signup') return <Signup onNavigate={setPage} />;
+  if (page === 'login')    return <Login     onNavigate={setPage} />;
+  if (page === 'signup')   return <Signup    onNavigate={setPage} />;
+  if (page === 'dashboard') return <Dashboard onNavigate={setPage} />;
 
   return (
     <>

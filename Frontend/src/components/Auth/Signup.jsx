@@ -59,9 +59,8 @@ export default function Signup({ onNavigate }) {
       sessionStorage.setItem('zw_token', data.token);
       sessionStorage.setItem('zw_user', JSON.stringify(data.user));
 
-      setStatus('success');
       setForm(INITIAL);
-      alert(`Account created! Welcome, ${data.user.fullName}!`);
+      onNavigate?.('dashboard');
     } catch (err) {
       setErrMsg(err.message || 'Something went wrong. Please try again.');
       setStatus('error');
